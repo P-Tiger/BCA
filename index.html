@@ -1,0 +1,2065 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bồ Công Anh trong Gió</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --sage: #88C8E8;
+        --sage-light: #D0E8F5;
+        --sage-mid: #4EAAC8;
+        --sage-deep: #1E6898;
+        --sage-warm: #B8DCF0;
+        --yellow: #7EC45A;
+        --yellow-light: #C8E8A8;
+        --yellow-deep: #4A9838;
+        --cream: #F0F8FC;
+        --cream-dark: #E0EEF8;
+        --white: #F8FCFE;
+        --ink: #1C3048;
+        --ink-light: #345878;
+        --ink-mid: #263C58;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: 'EB Garamond', serif;
+        overflow-x: hidden;
+      }
+
+      /* ─── PAGE 1: POSTER ─── */
+      .poster-section {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Blurred background = same size as image */
+      .poster-section::before {
+        content: '';
+        position: absolute;
+        inset: -30px;
+        background: url('assets/posters/poster.PNG') center / cover no-repeat;
+        filter: blur(22px) brightness(0.45) saturate(0.8);
+        z-index: 0;
+      }
+
+      .poster-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Floating dandelion seeds */
+      .poster-seeds {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 3;
+      }
+      .seed {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.55);
+        animation: float linear infinite;
+      }
+      .seed::after {
+        content: '';
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.4);
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(110vh) translateX(0px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-10vh) translateX(40px);
+          opacity: 0;
+        }
+      }
+
+      /* Scroll hint — perfectly centred horizontally, pinned to bottom */
+      .poster-scroll {
+        position: absolute;
+        bottom: 36px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: fit-content;
+        z-index: 4;
+        cursor: pointer;
+        text-align: center;
+        pointer-events: all;
+      }
+      .poster-scroll span {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+      }
+      .scroll-arrow {
+        width: 18px;
+        height: 18px;
+        border-right: 1.5px solid rgba(255, 255, 255, 0.7);
+        border-bottom: 1.5px solid rgba(255, 255, 255, 0.7);
+        transform: rotate(45deg);
+        margin: 0 auto;
+        animation: bounce 2s infinite;
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.3));
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: rotate(45deg) translateY(0);
+        }
+        50% {
+          transform: rotate(45deg) translateY(6px);
+        }
+      }
+
+      .corner-tl,
+      .corner-tr,
+      .corner-bl,
+      .corner-br {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-color: rgba(78, 170, 220, 0.55);
+        border-style: solid;
+      }
+      .corner-tl {
+        top: 8px;
+        left: 8px;
+        border-width: 1px 0 0 1px;
+      }
+      .corner-tr {
+        top: 8px;
+        right: 8px;
+        border-width: 1px 1px 0 0;
+      }
+      .corner-bl {
+        bottom: 8px;
+        left: 8px;
+        border-width: 0 0 1px 1px;
+      }
+      .corner-br {
+        bottom: 8px;
+        right: 8px;
+        border-width: 0 1px 1px 0;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── PAGE 2: INVITATION — SAGE & LIGHT YELLOW ─── */
+      .invite-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: linear-gradient(155deg, #f0f8fc 0%, #e4eef8 30%, #d4e8f5 60%, #c0dcf2 100%);
+        overflow: hidden;
+        padding: 70px 24px;
+      }
+
+      .invite-bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .invite-bg-circle-1 {
+        width: 600px;
+        height: 600px;
+        top: -150px;
+        left: -180px;
+        background: radial-gradient(circle, rgba(136, 200, 232, 0.22) 0%, transparent 70%);
+      }
+      .invite-bg-circle-2 {
+        width: 500px;
+        height: 500px;
+        bottom: -120px;
+        right: -140px;
+        background: radial-gradient(circle, rgba(80, 172, 200, 0.13) 0%, transparent 70%);
+      }
+      .invite-bg-circle-3 {
+        width: 300px;
+        height: 300px;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(252, 248, 240, 0.55) 0%, transparent 70%);
+      }
+
+      .invite-top-ornament {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(78, 170, 220, 0) 10%,
+          rgba(78, 170, 220, 0.7) 30%,
+          rgba(100, 190, 240, 0.9) 50%,
+          rgba(78, 170, 220, 0.7) 70%,
+          rgba(78, 170, 220, 0) 90%,
+          transparent 100%
+        );
+      }
+      .invite-bottom-ornament {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(100, 200, 130, 0) 10%,
+          rgba(100, 200, 130, 0.65) 30%,
+          rgba(120, 210, 100, 0.85) 50%,
+          rgba(100, 200, 130, 0.65) 70%,
+          rgba(100, 200, 130, 0) 90%,
+          transparent 100%
+        );
+      }
+
+      .invite-envelope {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        width: 100%;
+      }
+
+      .invite-seal-top {
+        text-align: center;
+        margin-bottom: -1px;
+        position: relative;
+        z-index: 3;
+      }
+      .invite-seal-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1e6898 0%, #3a90c0 50%, #184878 100%);
+        box-shadow:
+          0 4px 20px rgba(30, 80, 140, 0.45),
+          0 0 0 4px rgba(136, 200, 232, 0.35),
+          0 0 0 8px rgba(136, 200, 232, 0.14);
+        position: relative;
+      }
+
+      .invite-card-box {
+        border: 1px solid rgba(78, 170, 200, 0.32);
+        padding: 52px 56px 50px;
+        position: relative;
+        background: rgba(242, 250, 255, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow:
+          0 2px 0 rgba(78, 170, 200, 0.28),
+          0 20px 60px rgba(30, 80, 130, 0.10),
+          0 6px 24px rgba(30, 80, 130, 0.07),
+          inset 0 1px 0 rgba(255, 255, 255, 1);
+        text-align: center;
+      }
+
+      .invite-card-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(78, 170, 220, 0.7),
+          rgba(100, 195, 245, 0.95),
+          rgba(78, 170, 220, 0.7),
+          transparent
+        );
+      }
+
+      .invite-inner-frame {
+        position: absolute;
+        inset: 14px;
+        border: 1px solid rgba(78, 170, 200, 0.18);
+        pointer-events: none;
+      }
+
+      .ic-corner {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-color: rgba(78, 170, 220, 0.65);
+        border-style: solid;
+      }
+      .ic-corner.tl {
+        top: 10px;
+        left: 10px;
+        border-width: 1.5px 0 0 1.5px;
+      }
+      .ic-corner.tr {
+        top: 10px;
+        right: 10px;
+        border-width: 1.5px 1.5px 0 0;
+      }
+      .ic-corner.bl {
+        bottom: 10px;
+        left: 10px;
+        border-width: 0 0 1.5px 1.5px;
+      }
+      .ic-corner.br {
+        bottom: 10px;
+        right: 10px;
+        border-width: 0 1.5px 1.5px 0;
+      }
+
+      .ic-corner::after {
+        content: '◆';
+        position: absolute;
+        font-size: 5px;
+        color: rgba(78, 170, 220, 0.7);
+      }
+      .ic-corner.tl::after {
+        top: -4px;
+        left: -4px;
+      }
+      .ic-corner.tr::after {
+        top: -4px;
+        right: -4px;
+      }
+      .ic-corner.bl::after {
+        bottom: -4px;
+        left: -4px;
+      }
+      .ic-corner.br::after {
+        bottom: -4px;
+        right: -4px;
+      }
+
+      .invite-label-top {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        color: var(--sage-deep);
+        text-transform: uppercase;
+        opacity: 0.65;
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .invite-logo-wrap {
+        margin: 0 auto 20px;
+      }
+
+      .invite-gold-rule {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 260px;
+        margin: 0 auto 24px;
+      }
+      .invite-gold-rule-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78, 170, 220, 0.65), transparent);
+      }
+      .invite-gold-rule-gem {
+        color: rgba(60, 160, 210, 0.85);
+        font-size: 7px;
+        letter-spacing: 0.2em;
+      }
+
+      .invite-greeting {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 300;
+        font-size: clamp(14px, 2vw, 17px);
+        color: var(--ink-light);
+        letter-spacing: 0.1em;
+        margin-bottom: 20px;
+        opacity: 0.85;
+      }
+
+      /* Poetic opening lines */
+      .invite-poem {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--ink-mid);
+        line-height: 1.9;
+        letter-spacing: 0.04em;
+        margin-bottom: 28px;
+        padding: 18px 24px;
+        border-left: 2px solid rgba(78, 170, 200, 0.45);
+        border-right: 2px solid rgba(78, 170, 200, 0.45);
+        background: linear-gradient(135deg, rgba(136, 200, 232, 0.12) 0%, rgba(180, 228, 148, 0.18) 100%);
+        text-align: center;
+      }
+      /* Poem line 1: fixed 28px, only shrinks below 380px */
+      .poem-line1 {
+        font-size: 22px;
+        font-weight: 500;
+        display: block;
+        margin-bottom: -15px;
+      }
+      @media (max-width: 380px) {
+        .poem-line1 { font-size: 7.4vw; }
+      }
+      /* Poem line 2: fixed 14px, only shrinks below 380px */
+      .poem-line2 {
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 300;
+        opacity: 0.75;
+        display: inline-block;
+        transform: skewX(-14deg);
+      }
+      @media (max-width: 380px) {
+        .poem-line2 { font-size: 3.7vw; }
+      }
+
+      /* "Trân trọng giới thiệu" small label */
+      .invite-presents {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.45em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-bottom: 8px;
+      }
+
+      .invite-main-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: 64px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+        line-height: 1.2;
+        margin-bottom: 6px;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+      }
+      @media (max-width: 600px) {
+        .invite-main-title { font-size: clamp(40px, 10vw, 64px); }
+      }
+
+      .invite-title-sub {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(14px, 2.2vw, 19px);
+        color: var(--sage-mid);
+        letter-spacing: 0.18em;
+        margin-bottom: 30px;
+      }
+
+      .invite-divider-fancy {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        max-width: 360px;
+        margin: 0 auto 28px;
+      }
+      .invite-divider-fancy-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78, 170, 200, 0.45), transparent);
+      }
+      .invite-divider-fancy-center {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(78, 170, 200, 0.6);
+        font-size: 8px;
+        letter-spacing: 0.15em;
+      }
+
+      .invite-desc {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(14px, 2vw, 17px);
+        color: var(--ink-light);
+        line-height: 2.1;
+        font-style: italic;
+        max-width: 460px;
+        margin: 0 auto 20px;
+        opacity: 0.9;
+      }
+
+      /* Closing sentiment — warm and personal */
+      .invite-closing {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(13px, 1.8vw, 15px);
+        color: var(--sage-deep);
+        line-height: 1.9;
+        letter-spacing: 0.04em;
+        max-width: 400px;
+        margin: 0 auto 28px;
+        opacity: 0.75;
+      }
+
+      .invite-bottom-stamp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 8px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(78, 170, 200, 0.18);
+      }
+      .invite-stamp-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78, 170, 200, 0.25), transparent);
+        max-width: 80px;
+      }
+      .invite-stamp-text {
+        font-family: 'EB Garamond', serif;
+        font-size: 8px;
+        letter-spacing: 0.3em;
+        color: rgba(30, 80, 130, 0.5);
+        text-transform: uppercase;
+      }
+
+      /* ─── PAGE 3: GALLERY ─── */
+      .gallery-section {
+        background: var(--cream);
+        padding: 80px 20px 70px;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .section-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 10px;
+        font-style: italic;
+      }
+
+      .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        max-width: 280px;
+        margin: 0 auto 52px;
+      }
+      .section-divider .dl {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(160, 128, 96, 0.45));
+      }
+      .section-divider .dr {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(160, 128, 96, 0.45), transparent);
+      }
+      .section-divider .dd {
+        color: var(--sage-mid);
+        font-size: 12px;
+      }
+
+      .gallery-layout {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .gallery-main-wrap {
+        flex: 0 0 340px;
+        max-width: 340px;
+        position: relative;
+      }
+
+      .gallery-main-img {
+        width: 100%;
+        aspect-ratio: 3/4;
+        background: linear-gradient(155deg, #f0f8fc 0%, #e4eef8 30%, #d4e8f5 60%, #c0dcf2 100%);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(160, 128, 96, 0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .gallery-main-img svg {
+        opacity: 0.35;
+      }
+      .gallery-main-img p {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 13px;
+        color: var(--ink-light);
+        opacity: 0.6;
+      }
+
+      .gallery-thumbs-col {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 4px;
+      }
+
+      .gallery-thumb {
+        width: 130px;
+        aspect-ratio: 4/3;
+        background: linear-gradient(155deg, #f0f8fc 0%, #e4eef8 30%, #d4e8f5 60%, #c0dcf2 100%);
+        border-radius: 2px;
+        overflow: hidden;
+        border: 1px solid rgba(160, 128, 96, 0.22);
+        position: relative;
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s,
+          border-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .gallery-thumb:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 18px rgba(160, 128, 96, 0.28);
+        border-color: rgba(160, 128, 96, 0.55);
+      }
+
+      .gallery-thumb.active {
+        border-color: var(--sage-mid);
+        box-shadow: 0 4px 20px rgba(160, 128, 96, 0.38);
+      }
+
+      .gallery-thumb svg {
+        opacity: 0.35;
+      }
+      .gallery-thumb p {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 10px;
+        color: var(--ink-light);
+        opacity: 0.6;
+        text-align: center;
+        padding: 0 4px;
+      }
+
+      .gallery-thumb::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(110, 80, 52, 0.28), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        border-radius: 2px;
+      }
+      .gallery-thumb:hover::after,
+      .gallery-thumb.active::after {
+        opacity: 1;
+      }
+
+      .gallery-dots {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 16px;
+      }
+      .gallery-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(160, 128, 96, 0.3);
+        transition:
+          background 0.3s,
+          transform 0.3s;
+        cursor: pointer;
+      }
+      .gallery-dot.active {
+        background: var(--sage-mid);
+        transform: scale(1.3);
+      }
+
+      @media (max-width: 700px) {
+        .gallery-layout {
+          flex-direction: column;
+          align-items: center;
+        }
+        .gallery-main-wrap {
+          flex: none;
+          max-width: 100%;
+          width: 100%;
+        }
+        .gallery-thumbs-col {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 100%;
+          gap: 8px;
+          padding-top: 0;
+        }
+        .gallery-thumb {
+          width: calc(33.33% - 6px);
+          aspect-ratio: 1 / 1;
+          height: unset;
+        }
+      }
+
+      /* ─── EKIP CREDITS ─── */
+      .ekip-section {
+        max-width: 520px;
+        margin: 64px auto 0;
+        padding: 0 16px;
+      }
+      .ekip-credits-box {
+        border: 1px solid rgba(78,170,200,0.32);
+        background: rgba(240,250,255,0.72);
+        backdrop-filter: blur(12px);
+        position: relative;
+        padding: 40px 36px 36px;
+        text-align: center;
+      }
+      @media (max-width: 480px) {
+        .ekip-credits-box { padding: 36px 20px 30px; }
+        .ekip-section { max-width: 100%; }
+      }
+      .ekip-credits-box::before, .ekip-credits-box::after {
+        content: '';
+        position: absolute;
+        width: 20px; height: 20px;
+        border-color: rgba(78,170,220,0.55);
+        border-style: solid;
+      }
+      .ekip-credits-box::before { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; }
+      .ekip-credits-box::after  { bottom: 8px; right: 8px; border-width: 0 1.5px 1.5px 0; }
+      .ekip-credits-box .cc-corner-tr, .ekip-credits-box .cc-corner-bl {
+        position: absolute;
+        width: 20px; height: 20px;
+        border-color: rgba(78,170,220,0.55);
+        border-style: solid;
+      }
+      .ekip-credits-box .cc-corner-tr { top: 8px; right: 8px; border-width: 1.5px 1.5px 0 0; }
+      .ekip-credits-box .cc-corner-bl { bottom: 8px; left: 8px; border-width: 0 0 1.5px 1.5px; }
+
+      .ekip-credits-top-line {
+        position: absolute;
+        top: 0; left: 10%; right: 10%; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(78,170,220,0.7), transparent);
+      }
+
+      .ekip-credits-pretitle {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.5em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 20px;
+      }
+
+      .ekip-credits-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(20px, 3vw, 26px);
+        font-weight: 400;
+        color: var(--ink);
+        letter-spacing: 0.12em;
+        margin-bottom: 28px;
+        line-height: 1.3;
+      }
+
+      .ekip-credits-rule {
+        display: flex; align-items: center; gap: 10px;
+        max-width: 200px; margin: 0 auto 28px;
+      }
+      .ekip-credits-rule-line {
+        flex: 1; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78,170,220,0.55), transparent);
+      }
+      .ekip-credits-rule-gem { color: rgba(60,160,210,0.7); font-size: 6px; letter-spacing: 0.2em; }
+
+      .ekip-credits-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+        padding: 9px 0;
+        border-bottom: 1px solid rgba(78,170,200,0.12);
+      }
+      .ekip-credits-row:last-child { border-bottom: none; }
+      .ekip-credits-role {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(10px, 1.6vw, 12px);
+        letter-spacing: 0.2em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.7;
+        text-align: left;
+        flex-shrink: 0;
+      }
+      .ekip-credits-dots {
+        flex: 1;
+        min-width: 12px;
+        border-bottom: 1px dotted rgba(78,170,200,0.25);
+        margin: 0 6px 3px;
+      }
+      .ekip-credits-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(13px, 1.8vw, 17px);
+        color: var(--ink-light);
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .ekip-cast-separator {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 16px 0 12px;
+      }
+      .ekip-cast-separator-line {
+        flex: 1; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78,170,200,0.35), transparent);
+      }
+      .ekip-cast-separator-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.55;
+      }
+
+      /* ─── CREDITS PAGE ─── */
+      .credits-page {
+        position: relative;
+        width: 100%;
+        min-height: 100svh;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 60px 20px;
+      }
+      .credits-page-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('assets/IMG_0542.JPG');
+        background-size: cover;
+        background-position: center top;
+        z-index: 0;
+      }
+      .credits-page-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(10,18,30,0.72) 0%,
+          rgba(18,28,48,0.60) 50%,
+          rgba(10,18,30,0.78) 100%
+        );
+        z-index: 1;
+      }
+      .credits-page .ekip-section {
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+      }
+      /* Override box colours for dark bg */
+      .credits-page .ekip-credits-box {
+        background: rgba(10,18,30,0.55);
+        border-color: rgba(78,170,220,0.45);
+        backdrop-filter: blur(18px);
+      }
+      .credits-page .ekip-credits-box::before,
+      .credits-page .ekip-credits-box::after,
+      .credits-page .ekip-credits-box .cc-corner-tr,
+      .credits-page .ekip-credits-box .cc-corner-bl {
+        border-color: rgba(100,195,240,0.7);
+      }
+      .credits-page .ekip-credits-role {
+        color: rgba(168,224,248,0.75);
+      }
+      .credits-page .ekip-credits-name {
+        color: rgba(248,252,255,0.92);
+      }
+      .credits-page .ekip-credits-row {
+        border-bottom-color: rgba(78,170,220,0.15);
+      }
+      .credits-page .ekip-credits-dots {
+        border-bottom-color: rgba(78,170,220,0.2);
+      }
+      .credits-page .ekip-cast-separator-label {
+        color: rgba(100,195,240,0.8);
+        opacity: 1;
+      }
+      .credits-page .ekip-cast-separator-line {
+        background: linear-gradient(90deg, transparent, rgba(100,195,240,0.4), transparent);
+      }
+
+      /* ─── PAGE 4: EVENT INFO — TICKET STYLE ─── */
+      .info-section {
+        background: linear-gradient(175deg, #f8fbff 0%, #ddeef8 30%, #b8d8ef 65%, #8bbdd8 100%);
+        padding: 80px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 36px;
+      }
+      .info-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 20% 25%, rgba(255,255,255,0.55) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 75%, rgba(120,200,100,0.18) 0%, transparent 50%);
+        pointer-events: none;
+      }
+      .info-section-header {
+        position: relative;
+        z-index: 1;
+      }
+      .info-section-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.55em;
+        color: var(--sage-deep);
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 10px;
+      }
+      .info-section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(28px, 4.5vw, 42px);
+        font-weight: 400;
+        color: var(--ink);
+        letter-spacing: 0.06em;
+      }
+
+      /* Ticket card */
+      .event-card {
+        position: relative;
+        z-index: 1;
+        max-width: 420px;
+        width: 100%;
+        background: rgba(242,252,255,0.90);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(78,170,200,0.38);
+        box-shadow:
+          0 6px 48px rgba(30,80,130,0.14),
+          0 1px 0 rgba(255,255,255,0.95) inset;
+      }
+      .event-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(78,170,220,0.9), transparent);
+      }
+      .ec-corner {
+        position: absolute;
+        width: 16px; height: 16px;
+        border-color: rgba(78,170,220,0.65);
+        border-style: solid;
+      }
+      .ec-corner.tl { top: 7px; left: 7px; border-width: 1.5px 0 0 1.5px; }
+      .ec-corner.tr { top: 7px; right: 7px; border-width: 1.5px 1.5px 0 0; }
+      .ec-corner.bl { bottom: 7px; left: 7px; border-width: 0 0 1.5px 1.5px; }
+      .ec-corner.br { bottom: 7px; right: 7px; border-width: 0 1.5px 1.5px 0; }
+
+      .event-date-hero {
+        padding: 36px 32px 28px;
+        border-bottom: 1px solid rgba(78,170,200,0.14);
+      }
+      .event-block-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.5em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.58;
+        margin-bottom: 10px;
+      }
+      .event-date-big {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(56px, 14vw, 88px);
+        font-weight: 300;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .event-date-sub {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(13px, 2.2vw, 16px);
+        letter-spacing: 0.38em;
+        color: var(--sage-deep);
+        opacity: 0.72;
+      }
+
+      /* Tear line between blocks */
+      .event-tear-line {
+        position: relative;
+        height: 1px;
+        margin: 0 -1px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(78,170,200,0.28) 0px, rgba(78,170,200,0.28) 5px,
+          transparent 5px, transparent 11px
+        );
+      }
+      .event-tear-line::before,
+      .event-tear-line::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(155deg, #d8eef8, #c0dcf0);
+        transform: translateY(-50%);
+        border: 1px solid rgba(78,170,200,0.25);
+      }
+      .event-tear-line::before { left: -6px; }
+      .event-tear-line::after  { right: -6px; }
+
+      .event-time-block {
+        padding: 24px 32px;
+        border-bottom: 1px solid rgba(78,170,200,0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+      }
+      .event-time-icon { font-size: 20px; opacity: 0.72; }
+      .event-time-main {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(32px, 7vw, 50px);
+        font-weight: 300;
+        color: var(--ink);
+        letter-spacing: 0.12em;
+        line-height: 1;
+      }
+
+      .event-venue-block {
+        padding: 26px 28px 34px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .event-venue-icon { font-size: 18px; opacity: 0.65; margin-bottom: 2px; }
+      .event-venue-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(18px, 3.5vw, 24px);
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: 0.18em;
+        line-height: 1.4;
+      }
+      .event-venue-address {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        font-size: clamp(13px, 2vw, 15px);
+        color: var(--ink-light);
+        line-height: 1.8;
+        opacity: 0.82;
+        text-align: center;
+      }
+
+      /* ─── PAGE 5: CLOSING ─── */
+      .thankyou-section {
+        background: linear-gradient(175deg, var(--cream) 0%, #e8f4fc 60%, #d8eaf8 100%);
+        padding: 90px 20px 100px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .thankyou-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.65), transparent 60%);
+        pointer-events: none;
+      }
+      .thankyou-inner {
+        max-width: 580px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .thankyou-dandelion {
+        width: 64px; height: 64px;
+        margin: 0 auto 28px;
+        opacity: 0.6;
+      }
+      .thankyou-eyebrow {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.5em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.58;
+        margin-bottom: 10px;
+      }
+      .thankyou-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(26px, 4.5vw, 40px);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--ink);
+        line-height: 1.4;
+        margin-bottom: 36px;
+      }
+      .thankyou-quote {
+        position: relative;
+        max-width: 500px;
+        margin: 0 auto 40px;
+        padding: 30px 32px 28px;
+        background: rgba(240,250,255,0.65);
+        border-left: 2px solid rgba(78,170,200,0.38);
+        border-right: 2px solid rgba(78,170,200,0.38);
+        text-align: left;
+      }
+      .thankyou-quote::before {
+        content: '\201C';
+        position: absolute;
+        top: -8px; left: 14px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 80px;
+        color: rgba(78,170,220,0.18);
+        line-height: 1;
+        font-style: italic;
+        pointer-events: none;
+      }
+      .thankyou-quote p {
+        font-family: 'EB Garamond', serif;
+        font-size: clamp(14px, 2.2vw, 17px);
+        color: var(--ink-light);
+        line-height: 2.05;
+        font-style: italic;
+        position: relative;
+        z-index: 1;
+      }
+      .thankyou-rule {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        max-width: 260px;
+        margin: 0 auto 32px;
+      }
+      .thankyou-rule-line {
+        flex: 1; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(78,170,200,0.42), transparent);
+      }
+      .thankyou-rule-gem {
+        color: rgba(60,160,210,0.7);
+        font-size: 8px;
+        letter-spacing: 0.15em;
+      }
+      .signature-block {
+        border-top: 1px solid rgba(78,170,200,0.2);
+        padding-top: 28px;
+      }
+      .signature-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 18px;
+        letter-spacing: 0.2em;
+        color: var(--sage-mid);
+        margin-bottom: 5px;
+      }
+      .signature-sub {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        font-size: 14px;
+        color: rgba(30,80,130,0.6);
+      }
+
+      footer {
+        background: #0c1e30;
+        padding: 24px 20px;
+        text-align: center;
+      }
+      footer p {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        color: rgba(136, 200, 232, 0.38);
+        text-transform: uppercase;
+      }
+
+      /* Reveal animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.85s ease,
+          transform 0.85s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── GRAMOPHONE MUSIC PLAYER ─── */
+      .gram-player {
+        position: fixed;
+        bottom: 22px;
+        right: 26px;
+        z-index: 9999;
+        cursor: pointer;
+        user-select: none;
+        filter: drop-shadow(0 4px 16px rgba(0,0,0,0.42));
+        transition: filter 0.3s, transform 0.25s;
+      }
+      .gram-player:hover {
+        filter: drop-shadow(0 6px 24px rgba(140,85,15,0.65));
+        transform: scale(1.07);
+      }
+      .gram-player:active { transform: scale(0.96); }
+
+      @keyframes gramDiscSpin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      .gram-disc-spin {
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .gram-player.playing .gram-disc-spin {
+        animation: gramDiscSpin 2.4s linear infinite;
+      }
+      .gram-player.playing {
+        filter: drop-shadow(0 4px 26px rgba(200,145,42,0.7));
+      }
+
+      @keyframes gramNoteFloat {
+        0%   { transform: translateY(0)   translateX(0)   scale(1);   opacity: 0.9; }
+        100% { transform: translateY(-46px) translateX(10px) scale(0.5); opacity: 0; }
+      }
+      .gram-note {
+        position: absolute;
+        font-size: 15px;
+        color: #c8a050;
+        pointer-events: none;
+        opacity: 0;
+        top: 0;
+        right: 10px;
+      }
+      .gram-player.playing .gram-note:nth-child(1) {
+        animation: gramNoteFloat 2.2s ease-out 0s infinite;
+      }
+      .gram-player.playing .gram-note:nth-child(2) {
+        animation: gramNoteFloat 2.5s ease-out 0.85s infinite;
+        right: 24px;
+      }
+      .gram-player.playing .gram-note:nth-child(3) {
+        animation: gramNoteFloat 2.0s ease-out 1.7s infinite;
+        right: 16px;
+      }
+
+      .gram-tooltip {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        background: rgba(20,10,0,0.87);
+        color: rgba(255,220,140,0.95);
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        padding: 5px 11px;
+        border-radius: 2px;
+        border: 1px solid rgba(200,150,60,0.4);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .gram-player:hover .gram-tooltip { opacity: 1; }
+
+      /* ─── PAGE 3B: MOSAIC GRID — MOBILE FIRST ─── */
+
+      /* ── BASE (mobile): grid 2 cột, trái dọc / phải 2 ảnh ── */
+      .mosaic-section {
+        background: #0c1820;
+        padding: 0;
+      }
+      .mosaic-grid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        height: 100svh;
+        gap: 3px;
+      }
+      /* mobile grid positions: trái chiếm 2 hàng, phải chia đôi */
+      .m-left   { grid-column: 1; grid-row: 1 / 3; }
+      .m-top-r  { grid-column: 2; grid-row: 1; }
+      .m-bot-r1 { grid-column: 2; grid-row: 2; }
+      .m-bot-r2 { display: none; } /* ẩn ô thứ 4 trên mobile */
+
+      .mosaic-cell {
+        position: relative;
+        background: #0c1820;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        min-height: 0;
+      }
+      .mosaic-cell img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        transition: filter 0.35s ease;
+      }
+
+      /* ── DESKTOP (≥ 768px): mosaic grid 3 cột đầy màn hình ── */
+      @media (min-width: 768px) {
+        .mosaic-section {
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+        .mosaic-grid {
+          display: grid;
+          flex: 1;
+          height: 100%;
+          grid-template-columns: 2fr 1.2fr 1.2fr;
+          grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+          gap: 4px;
+        }
+        .m-left   { grid-column: 1; grid-row: 1 / 3; }
+        .m-top-r  { grid-column: 2 / 4; grid-row: 1; }
+        .m-bot-r1 { grid-column: 2; grid-row: 2; }
+        .m-bot-r2 { display: block; grid-column: 3; grid-row: 2; }
+        .mosaic-cell { height: auto; }
+        .mosaic-cell:hover img {
+          filter: brightness(1.08);
+          transform: scale(1.02);
+          transition: filter 0.4s ease, transform 0.5s ease;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════
+     PAGE 1: POSTER
+══════════════════════════════════════ -->
+    <section class="poster-section" id="page1">
+      <!-- Đặt đường dẫn ảnh vào src bên dưới -->
+      <img class="poster-img" src="/assets//posters/poster.PNG" alt="Poster" />
+
+      <!-- Floating dandelion seeds -->
+      <div class="poster-seeds" id="seeds1"></div>
+
+      <!-- Scroll hint -->
+      <!-- <div class="poster-scroll" onclick="document.getElementById('page2').scrollIntoView({ behavior: 'smooth' })">
+        <span>Xem thiệp mời</span>
+        <div class="scroll-arrow"></div>
+      </div> -->
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PAGE 2: INVITATION — TRANG TRỌNG
+══════════════════════════════════════ -->
+    <section class="invite-section" id="page2">
+      <div class="invite-bg-circle invite-bg-circle-1"></div>
+      <div class="invite-bg-circle invite-bg-circle-2"></div>
+      <div class="invite-bg-circle invite-bg-circle-3"></div>
+      <div class="invite-top-ornament"></div>
+      <div class="invite-bottom-ornament"></div>
+
+      <div class="invite-envelope">
+        <!-- Wax seal -->
+        <div class="invite-seal-top">
+          <div class="invite-seal-circle">
+            <svg width="34" height="34" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="rgba(248,252,240,0.8)" stroke-width="1" fill="none">
+                <line x1="50" y1="50" x2="50" y2="18" />
+                <line x1="50" y1="50" x2="68" y2="24" />
+                <line x1="50" y1="50" x2="80" y2="42" />
+                <line x1="50" y1="50" x2="80" y2="58" />
+                <line x1="50" y1="50" x2="68" y2="76" />
+                <line x1="50" y1="50" x2="50" y2="82" />
+                <line x1="50" y1="50" x2="32" y2="76" />
+                <line x1="50" y1="50" x2="20" y2="58" />
+                <line x1="50" y1="50" x2="20" y2="42" />
+                <line x1="50" y1="50" x2="32" y2="24" />
+              </g>
+              <g fill="rgba(248,252,240,0.95)">
+                <circle cx="50" cy="18" r="3" />
+                <circle cx="68" cy="24" r="3" />
+                <circle cx="80" cy="42" r="3" />
+                <circle cx="80" cy="58" r="3" />
+                <circle cx="68" cy="76" r="3" />
+                <circle cx="50" cy="82" r="3" />
+                <circle cx="32" cy="76" r="3" />
+                <circle cx="20" cy="58" r="3" />
+                <circle cx="20" cy="42" r="3" />
+                <circle cx="32" cy="24" r="3" />
+              </g>
+              <circle cx="50" cy="50" r="9" fill="none" stroke="rgba(248,252,240,0.4)" stroke-width="1" />
+              <circle cx="50" cy="50" r="4" fill="rgba(248,252,240,0.95)" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Main card -->
+        <div class="invite-card-box">
+          <div class="invite-inner-frame"></div>
+          <span class="ic-corner tl"></span>
+          <span class="ic-corner tr"></span>
+          <span class="ic-corner bl"></span>
+          <span class="ic-corner br"></span>
+
+          <!-- Kính mời label -->
+
+          <!-- <p class="invite-poem">
+            <span class="poem-line1">The Elite, Art, Love...</span>
+            <span class="poem-line2">and Dandelions in the whispering Wind.</span>
+          </p> -->
+          <!-- <p class="invite-label-top">TRÂN TRỌNG KÍNH MỜI</p> -->
+          <!-- <br/> <span style="font-size: 10px;">BUỔI BÁO CÁO LỚP NÂNG CAO K1</span> -->
+          <p style="margin-bottom: 9px;">BUỔI BÁO CÁO LỚP NÂNG CAO K1
+          </p>
+          <p class="invite-label-top">TRÂN TRỌNG KÍNH MỜI
+          </p>
+
+          <!-- Gold rule -->
+          <div class="invite-gold-rule">
+            <div class="invite-gold-rule-line"></div>
+            <span class="invite-gold-rule-gem">✦ ✦ ✦</span>
+            <div class="invite-gold-rule-line"></div>
+          </div>
+
+          <!-- Greeting phrase -->
+          <!-- <p class="invite-greeting">Quý khán giả thân mến,</p> -->
+          
+          <!-- Opening poem line -->
+          <p class="invite-poem">
+            <span class="poem-line1">The Elite, Art, Love...</span>
+            <span class="poem-line2">and Dandelions in the whispering Wind.</span>
+          </p>
+
+          <!-- Divider -->
+          <div class="invite-divider-fancy">
+            <div class="invite-divider-fancy-line"></div>
+            <div class="invite-divider-fancy-center">
+              <span>◆</span><span style="font-size: 5px">◆</span><span>◆</span>
+            </div>
+            <div class="invite-divider-fancy-line"></div>
+          </div>
+
+          <!-- Title block -->
+          <p class="invite-presents">Trích Đoạn</p>
+          <h2 class="invite-main-title">Bồ Công Anh<br>Trong Gió</h2>
+          <!-- <p class="invite-title-sub">TRÂN TRỌNG KÍNH MỜI</p> -->
+
+          <!-- Divider 2 -->
+          <div class="invite-divider-fancy" style="margin-bottom: 26px">
+            <div class="invite-divider-fancy-line"></div>
+            <div class="invite-divider-fancy-center">
+              <span>◆</span><span style="font-size: 5px">◆</span><span>◆</span>
+            </div>
+            <div class="invite-divider-fancy-line"></div>
+          </div>
+
+          <!-- Description -->
+          <p class="invite-desc">
+            Trên cao nguyên gió hát của Đà Lạt, <br />
+            Có một ngọn đồi nhỏ ngủ trong mây — <br />
+            Bồ công anh theo mùa khẽ nở, <br />
+            Trời xanh như vừa chạm giấc say,<br />
+            Mây lững lờ trôi qua miền nhớ,<br />
+            Gió muôn đời mãi chẳng dừng chân...<br /> </hr>
+          <!-- Closing sentiment -->
+
+
+          <!-- Divider 2 -->
+          <div class="invite-divider-fancy" style="margin-bottom: 26px">
+            <div class="invite-divider-fancy-line"></div>
+            <div class="invite-divider-fancy-center">
+              <span>◆</span><span style="font-size: 5px">◆</span><span>◆</span>
+            </div>
+            <div class="invite-divider-fancy-line"></div>
+          </div>
+
+          
+          <!-- <p class="invite-closing">
+            Sự hiện diện của quý vị là niềm vinh dự lớn nhất<br />
+            mà chúng tôi trân trọng hơn bất cứ điều gì.
+          </p> -->
+          <!-- Bottom stamp -->
+          <!-- <div class="invite-bottom-stamp"> -->
+                 <!-- <div class="invite-stamp-line"></div> -->
+            <!-- <span class="invite-stamp-text">GVCN &nbsp;·&nbsp; NSƯT BÙI ĐẠI NGHĨA</span> -->
+            <!-- <div class="invite-stamp-line"></div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PAGE 3: GALLERY (vertical + thumbs)
+══════════════════════════════════════ -->
+    <section class="gallery-section" id="page3">
+      <!-- <p class="section-label reveal">Hình ảnh</p> -->
+      <!-- <h2 class="section-title reveal">Khoảnh Khắc Sân Khấu</h2> -->
+      <!-- <div class="section-divider reveal">
+        <div class="dl"></div>
+        <span class="dd">✦</span>
+        <div class="dr"></div>
+      </div> -->
+
+      <div class="gallery-layout reveal">
+        <!-- Main vertical image -->
+        <div class="gallery-main-wrap">
+          <div class="gallery-main-img" id="galleryMain">
+            <img id="galleryMainImg" src="" alt="Khoảnh Khắc" style="width:100%;height:100%;object-fit:contain;position:absolute;inset:0;border-radius:2px;display:block;" />
+          </div>
+          <!-- Dot indicators -->
+          <div class="gallery-dots" id="galleryDots"></div>
+        </div>
+
+        <!-- Thumbnail column -->
+        <div class="gallery-thumbs-col" id="galleryThumbs">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PAGE 3B: MOSAIC GRID
+══════════════════════════════════════ -->
+    <!-- <section class="mosaic-section" id="page3b">
+      <div class="mosaic-grid">
+
+        <div class="mosaic-cell m-bot-r1">
+          <img src="assets/IMG_0542.jpg" alt="Khoảnh Khắc" loading="lazy" />
+        </div> -->
+
+        <!-- <div class="mosaic-cell m-top-r">
+          <img src="assets/IMG_0542.jpg" alt="Khoảnh Khắc" loading="lazy" />
+        </div> -->
+
+        <!-- <div class="mosaic-cell m-bot-r1">
+          <img src="assets/IMG_0542.jpg" alt="Khoảnh Khắc" loading="lazy" />
+        </div>
+        <div class="mosaic-cell m-bot-r2">
+          <img src="assets/IMG_0542.jpg" alt="Khoảnh Khắc" loading="lazy" />
+        </div> -->
+      <!-- </div>
+    </section> -->
+
+    <!-- ══════════════════════════════════════
+     CREDITS PAGE: EKIP & CAST
+══════════════════════════════════════ -->
+    <section class="credits-page" id="credits">
+      <div class="credits-page-bg"></div>
+      <div class="credits-page-overlay"></div>
+
+      <div class="ekip-section reveal">
+        <div class="ekip-credits-box">
+          <span class="cc-corner-tr"></span>
+          <span class="cc-corner-bl"></span>
+
+          <div class="ekip-cast-separator">
+            <div class="ekip-cast-separator-line"></div>
+            <span class="ekip-cast-separator-label">Ekip Thực Hiện</span>
+            <div class="ekip-cast-separator-line"></div>
+          </div>
+
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Giáo Viên Chủ Nhiệm</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">NSƯT Đại Nghĩa</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Biên Tập</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Dương Khiết Di</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Chọn Nhạc</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Dương Khiết Di</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Bấm Nhạc</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Thanh Lan</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Và các thành viên khác</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">✶ ✶ ✶</span>
+          </div>
+
+          <div class="ekip-cast-separator">
+            <div class="ekip-cast-separator-line"></div>
+            <span class="ekip-cast-separator-label">Diễn Viên</span>
+            <div class="ekip-cast-separator-line"></div>
+          </div>
+
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Sơn Quỳnh</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Dương Khiết Di</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Hoàng Công Anh</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Thiên Phước</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Trần Công Anh</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Gia Huy</span>
+          </div>
+          <div class="ekip-credits-row">
+            <span class="ekip-credits-role">Bà An</span>
+            <span class="ekip-credits-dots"></span>
+            <span class="ekip-credits-name">Thiên Phúc</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PAGE 4: EVENT INFO
+══════════════════════════════════════ -->
+    <section class="info-section" id="page4">
+
+      <!-- <div class="info-section-header reveal">
+        <p class="info-section-label">Chi Tiết Sự Kiện</p>
+        <h2 class="info-section-title">Tham Dự Cùng Chúng Tôi</h2>
+      </div> -->
+
+      <div class="event-card reveal">
+        <span class="ec-corner tl"></span>
+        <span class="ec-corner tr"></span>
+        <span class="ec-corner bl"></span>
+        <span class="ec-corner br"></span>
+
+        <!-- Date -->
+        <div class="event-date-hero">
+          <p class="event-block-label">DATE</p>
+          <div class="event-date-big">31</div>
+          <div class="event-date-sub">THÁNG 03 &nbsp;·&nbsp; 2026</div>
+        </div>
+
+        <div class="event-tear-line"></div>
+
+        <!-- Time -->
+        <div class="event-time-block">
+          <span class="event-time-icon">🕖</span>
+          <div>
+            <p class="event-block-label" style="text-align:left;">TIME</p>
+            <div class="event-time-main">19 : 00</div>
+          </div>
+        </div>
+
+        <div class="event-tear-line"></div>
+
+        <!-- Venue -->
+        <div class="event-venue-block">
+          <div class="event-venue-icon">📍</div>
+          <div class="event-venue-name">SÂN KHẤU NỤ CƯỜI</div>
+          <div class="event-venue-address">
+            Số 6 Huyền Trân Công Chúa<br />
+            Phường Bến Thành, TP. Hồ Chí Minh
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════
+     PAGE 5: CLOSING
+══════════════════════════════════════ -->
+    <section class="thankyou-section" id="page5">
+      <div class="thankyou-inner">
+
+        <!-- Dandelion ornament -->
+        <!-- <svg class="thankyou-dandelion reveal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#a8916e" stroke-width="0.9" fill="none">
+            <line x1="40" y1="40" x2="40" y2="10" />
+            <line x1="40" y1="40" x2="58" y2="16" />
+            <line x1="40" y1="40" x2="66" y2="40" />
+            <line x1="40" y1="40" x2="58" y2="64" />
+            <line x1="40" y1="40" x2="40" y2="66" />
+            <line x1="40" y1="40" x2="22" y2="64" />
+            <line x1="40" y1="40" x2="14" y2="40" />
+            <line x1="40" y1="40" x2="22" y2="16" />
+            <line x1="40" y1="40" x2="52" y2="12" />
+            <line x1="40" y1="40" x2="62" y2="28" />
+            <line x1="40" y1="40" x2="62" y2="52" />
+            <line x1="40" y1="40" x2="52" y2="68" />
+            <line x1="40" y1="40" x2="28" y2="68" />
+            <line x1="40" y1="40" x2="18" y2="52" />
+            <line x1="40" y1="40" x2="18" y2="28" />
+            <line x1="40" y1="40" x2="28" y2="12" />
+          </g>
+          <g fill="#c8a870">
+            <circle cx="40" cy="10" r="2" />
+            <circle cx="58" cy="16" r="2" />
+            <circle cx="66" cy="40" r="2" />
+            <circle cx="58" cy="64" r="2" />
+            <circle cx="40" cy="66" r="2" />
+            <circle cx="22" cy="64" r="2" />
+            <circle cx="14" cy="40" r="2" />
+            <circle cx="22" cy="16" r="2" />
+            <circle cx="52" cy="12" r="2" />
+            <circle cx="62" cy="28" r="2" />
+            <circle cx="62" cy="52" r="2" />
+            <circle cx="52" cy="68" r="2" />
+            <circle cx="28" cy="68" r="2" />
+            <circle cx="18" cy="52" r="2" />
+            <circle cx="18" cy="28" r="2" />
+            <circle cx="28" cy="12" r="2" />
+          </g>
+          <circle cx="40" cy="40" r="5.5" fill="none" stroke="#a8916e" stroke-width="0.9" opacity="0.5" />
+          <circle cx="40" cy="40" r="2.5" fill="#c8a870" />
+        </svg>
+
+        <p class="thankyou-eyebrow reveal">Bồ Công Anh Trong Gió</p>
+        <h2 class="thankyou-title reveal">
+          Một câu chuyện về tình yêu,<br />
+          về những điều buộc phải buông
+        </h2> -->
+
+        <!-- Quote block -->
+        <div class="thankyou-quote reveal">
+          <p>
+            Trong những gia tộc nơi mọi thứ đều được định sẵn,<br />
+            tình yêu là điều duy nhất không thể giữ.<br />
+            Mong manh như bồ công anh trong gió —<br />
+            đẹp, nhưng buộc phải buông.<br /><br />
+            Đà Lạt vẫn lặng im trong gió,<br />
+            bồ công anh vẫn bay qua những mùa nhớ —<br />
+            và một câu chuyện<br />
+            chỉ chờ một người đủ lặng để nghe.
+          </p>
+        </div>
+
+        <div class="thankyou-rule reveal">
+          <div class="thankyou-rule-line"></div>
+          <span class="thankyou-rule-gem">✦ ✦ ✦</span>
+          <div class="thankyou-rule-line"></div>
+        </div>
+
+        <!-- <div class="signature-block reveal">
+          <div class="signature-name">Dương Khiết Di</div>
+          <div class="signature-sub">Ban Tổ Chức · Thi Vở Kịch Bồ Công Anh</div>
+        </div> -->
+
+           <p class="invite-closing">
+            Sự hiện diện của quý vị là niềm vinh dự lớn nhất<br />
+            mà chúng tôi trân trọng hơn bất cứ điều gì.
+          </p>
+
+      </div>
+    </section>
+
+    <!-- ── GRAMOPHONE MUSIC PLAYER ── -->
+    <div class="gram-player " id="gramPhone">
+      <span class="gram-note">♪</span>
+      <span class="gram-note">♫</span>
+      <span class="gram-note">♩</span>
+      <div class="gram-tooltip" id="gramTip">Nhấn để mở nhạc</div>
+      <svg width="92" height="96" viewBox="0 0 115 120" overflow="visible" xmlns="http://www.w3.org/2000/svg" style="display:block;transform:scaleX(1);">
+        <!-- Cabinet base -->
+        <rect x="12" y="82" width="54" height="28" rx="3" fill="#5c3318" stroke="#8B5A2B" stroke-width="1"/>
+        <line x1="14" y1="90" x2="64" y2="90" stroke="rgba(200,150,60,0.35)" stroke-width="0.8"/>
+        <line x1="14" y1="94" x2="64" y2="94" stroke="rgba(180,120,40,0.2)" stroke-width="0.5"/>
+        <rect x="12" y="82" width="54" height="3" rx="0" fill="rgba(200,150,60,0.22)"/>
+        <text x="39" y="103" text-anchor="middle" font-size="9" fill="rgba(200,160,80,0.55)" font-family="serif">❧</text>
+        <!-- Cabinet legs -->
+        <rect x="16" y="108" width="5" height="11" rx="2" fill="#3d2008"/>
+        <rect x="57" y="108" width="5" height="11" rx="2" fill="#3d2008"/>
+        <ellipse cx="18.5" cy="119" rx="4" ry="1.5" fill="#2a1505"/>
+        <ellipse cx="59.5" cy="119" rx="4" ry="1.5" fill="#2a1505"/>
+        <!-- Turntable platform -->
+        <ellipse cx="39" cy="83" rx="24" ry="5.5" fill="rgba(0,0,0,0.3)"/>
+        <ellipse cx="39" cy="81" rx="24" ry="5" fill="#2e1508" stroke="#5c3010" stroke-width="1"/>
+        <ellipse cx="39" cy="80" rx="21" ry="3.5" fill="#1a0c04"/>
+
+        <!-- SPINNING VINYL RECORD (children centred at 0,0 → rotates around disc centre) -->
+        <g transform="translate(39,64)" class="gram-disc-spin" id="discGroup">
+          <circle r="23" fill="#0e0e0e"/>
+          <circle r="21.5" fill="none" stroke="#1a1a1a" stroke-width="0.7"/>
+          <circle r="20"   fill="none" stroke="#1a1a1a" stroke-width="0.6"/>
+          <circle r="18.5" fill="none" stroke="#1c1c1c" stroke-width="0.7"/>
+          <circle r="17"   fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+          <circle r="15.5" fill="none" stroke="#1c1c1c" stroke-width="0.6"/>
+          <circle r="14"   fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+          <circle r="12.5" fill="none" stroke="#1c1c1c" stroke-width="0.5"/>
+          <circle r="11"   fill="none" stroke="#1a1a1a" stroke-width="0.4"/>
+          <!-- Centre label (deep crimson — French style) -->
+          <circle r="9.5" fill="#7a1010"/>
+          <circle r="9.5" fill="none" stroke="#9e2020" stroke-width="0.5"/>
+          <circle r="7.5" fill="none" stroke="rgba(255,200,120,0.3)" stroke-width="0.4"/>
+          <line x1="-5" y1="-3"   x2="5" y2="-3"   stroke="rgba(255,220,150,0.65)" stroke-width="0.6"/>
+          <line x1="-4" y1="-0.5" x2="4" y2="-0.5" stroke="rgba(255,220,150,0.65)" stroke-width="0.6"/>
+          <line x1="-3" y1="2"    x2="3" y2="2"    stroke="rgba(255,220,150,0.45)" stroke-width="0.5"/>
+          <line x1="-2" y1="4"    x2="2" y2="4"    stroke="rgba(255,200,100,0.35)" stroke-width="0.5"/>
+          <!-- Spindle -->
+          <circle r="2"   fill="#c8a050"/>
+          <circle r="0.8" fill="#e0c080"/>
+          <!-- Sheen glare -->
+          <ellipse cx="-12" cy="-10" rx="7" ry="4" fill="rgba(255,255,255,0.05)" transform="rotate(-30)"/>
+        </g>
+
+        <!-- Tonearm assembly (not spinning) -->
+        <circle cx="59" cy="55" r="5"   fill="#6a4010" stroke="#c8a050" stroke-width="1"/>
+        <circle cx="59" cy="55" r="2.5" fill="#c8a050"/>
+        <circle cx="59" cy="55" r="1"   fill="#e0c870"/>
+        <line x1="59" y1="55" x2="49" y2="68" stroke="#c8a050" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="49" y1="68" x2="46" y2="73" stroke="#b09040" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="46" cy="73" r="1.2" fill="#e0c070"/>
+
+        <!-- Horn support post -->
+        <line x1="56" y1="76" x2="74" y2="30" stroke="#6B3D18" stroke-width="3" stroke-linecap="round"/>
+        <line x1="56" y1="76" x2="74" y2="30" stroke="rgba(200,150,60,0.2)" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="56" cy="76" r="4.5" fill="#8B5A2B" stroke="#c8a050" stroke-width="0.8"/>
+        <circle cx="74" cy="30" r="3"   fill="#8B5A2B" stroke="#c8a050" stroke-width="0.7"/>
+
+        <!-- Gramophone horn (brass bell — French phonograph style) -->
+        <path d="M72 32 C71 23, 75 13, 83 7 C89 2, 98 1, 104 7 C109 12, 107 22, 99 28 C90 34, 81 35, 75 33 Z"
+              fill="#c8922a"/>
+        <path d="M100 8 C106 13, 107 20, 102 26 C97 32, 90 35, 85 34"
+              fill="rgba(100,50,0,0.28)"/>
+        <path d="M72 32 C71 23, 75 13, 83 7"
+              fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+        <path d="M74 31 C73 23, 77 14, 84 8 C90 3, 97 2, 102 7"
+              fill="none" stroke="rgba(255,225,110,0.32)" stroke-width="1.2"/>
+        <path d="M76 30 C76 22, 79 14, 86 10"
+              fill="none" stroke="rgba(255,225,110,0.18)" stroke-width="0.8"/>
+        <!-- Horn mouth rim -->
+        <ellipse cx="101" cy="6" rx="6" ry="4" fill="none" stroke="#d4a83a" stroke-width="1.2"
+                 transform="rotate(20 101 6)" opacity="0.85"/>
+        <ellipse cx="101" cy="6" rx="4.5" ry="3" fill="none" stroke="rgba(255,220,100,0.4)" stroke-width="0.6"
+                 transform="rotate(20 101 6)"/>
+        <!-- Decorative ornament ring on horn (French style) -->
+        <ellipse cx="86" cy="17" rx="9" ry="5" fill="none" stroke="rgba(212,168,58,0.38)" stroke-width="0.7"
+                 transform="rotate(28 86 17)"/>
+      </svg>
+    </div>
+    <audio id="bgMusic" src="assets/musics/Over.mp3" loop preload="auto" autoplay></audio>
+
+    <footer>
+      <p>✦✦✦✦✦ Dương Khiết Di ✦✦✦✦✦</p>
+    </footer>
+
+    <script>
+      // ─── Floating seeds (page1)
+      const seedsEl = document.getElementById('seeds1');
+      for (let i = 0; i < 22; i++) {
+        const s = document.createElement('div');
+        s.className = 'seed';
+        s.style.cssText = `
+      left: ${Math.random() * 100}%;
+      animation-duration: ${6 + Math.random() * 10}s;
+      animation-delay: ${Math.random() * 14}s;
+      width: ${3 + Math.random() * 4}px;
+      height: ${3 + Math.random() * 4}px;
+    `;
+        seedsEl.appendChild(s);
+      }
+
+      // ─── Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // ─── Gallery: 6 thumbnails + auto-slide
+      const galleryData = [
+        { src: '/assets/2.PNG', label: 'Khoảnh Khắc 1' },
+        { src: '/assets/3.PNG', label: 'Khoảnh Khắc 2' },
+        { src: '/assets/4.PNG', label: 'Khoảnh Khắc 3' },
+        { src: '/assets/5.PNG', label: 'Khoảnh Khắc 4' },
+        // { src: '/assets/5.PNG', label: 'Khoảnh Khắc 5' },
+        // { src: '/assets/6.jpg', label: 'Khoảnh Khắc 6' },
+        // { src: '/assets/7.jpg', label: 'Khoảnh Khắc 7' },
+        // { src: '/assets/8.jpg', label: 'Khoảnh Khắc 8' },
+        // { src: '/assets/9.jpg', label: 'Khoảnh Khắc 9' },
+        // { src: '/assets/11.jpg', label: 'Khoảnh Khắc 10' },
+        // { src: '/assets/12.jpg', label: 'Khoảnh Khắc 11' },
+      ];
+
+      const thumbsCol = document.getElementById('galleryThumbs');
+      const dotsEl = document.getElementById('galleryDots');
+      const mainImg = document.getElementById('galleryMainImg');
+      let currentSlide = 0;
+      let autoSlideTimer;
+
+      // Đặt ảnh chính ban đầu
+      mainImg.src = galleryData[0].src;
+
+      galleryData.forEach((item, i) => {
+        // Thumbnail
+        const thumb = document.createElement('div');
+        thumb.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
+        thumb.innerHTML = `<img src="${item.src}" alt="Hình ${i + 1}" style="width:100%;height:100%;object-fit:contain;position:absolute;inset:0;border-radius:2px;display:block;"/>`;
+        thumb.addEventListener('click', () => goToSlide(i));
+        thumbsCol.appendChild(thumb);
+
+        // Dot
+        const dot = document.createElement('div');
+        dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsEl.appendChild(dot);
+      });
+
+      function goToSlide(idx) {
+        currentSlide = idx;
+        // Update main image
+        mainImg.src = galleryData[idx].src;
+
+        // Update thumb active state
+        document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+          t.classList.toggle('active', i === idx);
+        });
+
+        // Update dot active state
+        document.querySelectorAll('.gallery-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === idx);
+        });
+
+        // Reset auto timer
+        clearInterval(autoSlideTimer);
+        startAutoSlide();
+      }
+
+      function startAutoSlide() {
+        autoSlideTimer = setInterval(() => {
+          goToSlide((currentSlide + 1) % galleryData.length);
+        }, 3000);
+      }
+
+      startAutoSlide();
+
+      // ─── Gramophone Music Player ───
+      const gramPhone = document.getElementById('gramPhone');
+      const bgMusic   = document.getElementById('bgMusic');
+      const gramTip   = document.getElementById('gramTip');
+      let musicPlaying = false;
+
+      function setPlaying(on) {
+        musicPlaying = on;
+        if (on) {
+          gramPhone.classList.add('playing');
+          gramTip.textContent = 'Nhấn để tắt nhạc';
+        } else {
+          gramPhone.classList.remove('playing');
+          gramTip.textContent = 'Nhấn để mở nhạc';
+        }
+      }
+
+      // Auto-play on load
+      window.addEventListener('load', function () {
+        bgMusic.play().then(() => setPlaying(true)).catch(() => {
+          // Browser blocked; wait for first user interaction then try again
+          const resume = () => {
+            bgMusic.play().then(() => setPlaying(true)).catch(() => {});
+            document.removeEventListener('click', resume);
+            document.removeEventListener('touchstart', resume);
+          };
+          document.addEventListener('click', resume, { once: true });
+          document.addEventListener('touchstart', resume, { once: true });
+        });
+      });
+
+      gramPhone.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!musicPlaying) {
+          bgMusic.play().then(() => setPlaying(true)).catch(() => {});
+        } else {
+          bgMusic.pause();
+          bgMusic.currentTime = 0;
+          setPlaying(false);
+        }
+      });
+    </script>
+  </body>
+</html>
