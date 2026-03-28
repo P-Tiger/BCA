@@ -1405,9 +1405,19 @@
       }
 
       .pgrid-right {
+        grid-column: 1/4;
+        grid-row: 1 / 4;
+        aspect-ratio: 1;
+        position: relative;
+        /* overflow: hidden; */
+        /* background: #111c28; */
+        /* margin-left: 10px; */
+      }
+
+      .pgrid-full {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto;
         gap: 5px;
         margin-right: 10px;
         margin-top: 5px;
@@ -1442,6 +1452,7 @@
         object-fit: cover;
         display: block;
         transition: transform 0.5s ease;
+        margin-bottom: 10px;
       }
      
 
@@ -1719,11 +1730,13 @@
           <img class="pgrid-cell-img" src="/assets/zdoc1.jpg" alt="Khoảnh khắc 1" />
         </div>
 
-        <div class="pgrid-right">
+        <div class="pgrid-full">
+          <div class="pgrid-right">   
           <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 1" />
           <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 1" />
           <img class="pgrid-cell-img" src="/assets/IMG_0655.jpg" alt="Khoảnh khắc 1" />
           <img class="pgrid-cell-img" src="/assets/IMG_7842.jpg" alt="Khoảnh khắc 1" />
+          </div>
 
         </div>
         
