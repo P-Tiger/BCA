@@ -1567,6 +1567,42 @@
         text-transform: uppercase;
         opacity: 0.7;
       }
+
+      /* ─── ADD TO CALENDAR BUTTON ─── */
+      .add-to-calendar {
+        margin-top: 24px;
+        text-align: center;
+      }
+      .calendar-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, var(--sage-mid) 0%, var(--sage-deep) 100%);
+        color: white;
+        font-family: 'EB Garamond', serif;
+        font-size: 14px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(30, 104, 152, 0.25);
+      }
+      .calendar-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(30, 104, 152, 0.35);
+        background: linear-gradient(135deg, var(--sage-deep) 0%, var(--sage-mid) 100%);
+      }
+      .calendar-btn:active {
+        transform: translateY(0);
+      }
+      .calendar-btn svg {
+        width: 18px;
+        height: 18px;
+      }
     </style>
   </head>
   <body>
@@ -1825,6 +1861,19 @@
             <div class="countdown-value" id="seconds">00</div>
             <div class="countdown-unit-label">Giây</div>
           </div>
+        </div>
+        
+        <!-- Add to Calendar Button -->
+        <div class="add-to-calendar">
+          <button class="calendar-btn" id="addToCalendarBtn">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="6" width="18" height="15" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+              <path d="M7 3V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 3V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Thêm Vào Lịch
+          </button>
         </div>
       </div>
 
@@ -2337,6 +2386,51 @@
       // Update countdown every second
       updateCountdown();
       setInterval(updateCountdown, 1000);
+
+      // ─── Add to Calendar ───
+      document.getElementById('addToCalendarBtn').addEventListener('click', function() {
+        // Event details
+        const eventTitle = 'Bồ Công Anh Trong Gió - Sân Khấu Nụ Cười';
+        const eventLocation = 'Sân Khấu Nụ Cười, Số 6 Huyền Trân Công Chúa, Phường Bến Thành, TP. Hồ Chí Minh';
+        const eventDescription = 'Buổi báo cáo lớp nâng cao K1 - Trích đoạn "Bồ Công Anh Trong Gió"';
+        const eventStart = '20260331T190000'; // 31/03/2026 19:00
+        const eventEnd = '20260331T230000';   // 31/03/2026 21:00
+
+        // Create ICS file content
+        const icsContent = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Bồ Công Anh Trong Gió//Event//VN',
+          'CALSCALE:GREGORIAN',
+          'METHOD:PUBLISH',
+          'BEGIN:VEVENT',
+          'DTSTART:' + eventStart,
+          'DTEND:' + eventEnd,
+          'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+          'UID:' + new Date().getTime() + '@boconganhtronggio.com',
+          'SUMMARY:' + eventTitle,
+          'DESCRIPTION:' + eventDescription,
+          'LOCATION:' + eventLocation,
+          'STATUS:CONFIRMED',
+          'SEQUENCE:0',
+          'BEGIN:VALARM',
+          'TRIGGER:-PT24H',
+          'ACTION:DISPLAY',
+          'DESCRIPTION:Nhắc nhở: ' + eventTitle,
+          'END:VALARM',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+
+        // Create blob and download
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'bo-cong-anh-trong-gio.ics';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
     </script>
   </body>
 </html>
