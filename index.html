@@ -1347,69 +1347,205 @@
       }
       .gram-player:hover .gram-tooltip { opacity: 1; }
 
-      /* ─── PAGE 3B: MOSAIC GRID — MOBILE FIRST ─── */
-
-      /* ── BASE (mobile): grid 2 cột, trái dọc / phải 2 ảnh ── */
-      .mosaic-section {
-        background: #0c1820;
+       /* ─── PAGE 3B: PHOTO GRID ─── */
+      .photo-grid-section {
+        background: #2978926e;
         padding: 0;
       }
-      .mosaic-grid {
+
+      .photo-grid-header {
+        text-align: center;
+        padding: 36px 20px 24px;
+      }
+      .photo-grid-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.55em;
+        color: rgba(136,200,232,0.45);
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .photo-grid-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(22px, 5vw, 30px);
+        font-weight: 400;
+        color: rgb(15 110 137);
+        letter-spacing: 0.08em;
+        line-height: 1.3;
+      }
+      .photo-grid-rule {
+        display: flex; align-items: center; gap: 10px;
+        max-width: 180px; margin: 14px auto 0;
+      }
+      .photo-grid-rule-line { flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(78,170,220,0.35),transparent); }
+      .photo-grid-rule-gem { color:rgba(78,170,220,0.5);font-size:6px; }
+
+      /* ── GRID LAYOUT ── */
+      .pgrid {
         display: grid;
         width: 100%;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
-        height: 100svh;
-        gap: 3px;
+        gap: 5px;
+        /* Mobile: trái 1 ảnh lớn, phải 2 ảnh nhỏ */
+        grid-template-columns: 1.15fr 1fr;
+        grid-template-rows: auto;
+        margin-top: 20px;
       }
-      /* mobile grid positions: trái chiếm 2 hàng, phải chia đôi */
-      .m-left   { grid-column: 1; grid-row: 1 / 3; }
-      .m-top-r  { grid-column: 2; grid-row: 1; }
-      .m-bot-r1 { grid-column: 2; grid-row: 2; }
-      .m-bot-r2 { display: none; } /* ẩn ô thứ 4 trên mobile */
 
-      .mosaic-cell {
+      /* Ảnh trái — chiều cao bằng tổng 2 ô phải cộng gap */
+      .pgrid-left {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        aspect-ratio: 0/3;
         position: relative;
-        background: #0c1820;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         overflow: hidden;
-        min-height: 0;
+        background: #111c28;
+        margin-left: 10px;
       }
-      .mosaic-cell img {
+
+      .pgrid-right {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 5px;
+        margin-right: 10px;
+        margin-top: 5px;
+      }
+
+      /* 2 ô phải nhỏ */
+      .pgrid-right-top {
+        grid-column: 2;
+        grid-row: 1;
+        aspect-ratio: 1/1;
+        position: relative;
+        overflow: hidden;
+        background: #111c28;
+      }
+      .pgrid-right-bot {
+        grid-column: 2;
+        grid-row: 2;
+        aspect-ratio: 1/1;
+        position: relative;
+        overflow: hidden;
+        background: #111c28;
+      }
+
+      /* ── DESKTOP ≥ 640px: 3 cột ── */
+      @media (min-width: 640px) {
+        .pgrid {
+          grid-template-columns: 1.4fr 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          /* height: 100vh; */
+          /* max-height: 700px; */
+          grid-template-columns: 1.15fr 1fr;
+        grid-template-rows: auto;
+        }
+        .pgrid-left {
+          grid-column: 1;
+          grid-row: 0 / 3;
+          aspect-ratio: unset;
+          height: 100%;
+        }
+        .pgrid-right-top {
+          grid-column: 2 / 4;
+          grid-row: 1;
+          aspect-ratio: unset;
+        }
+        .pgrid-right-bot {
+          grid-column: 2;
+          grid-row: 2;
+          aspect-ratio: unset;
+        }
+        .pgrid-right-bot2 {
+          display: block !important;
+          grid-column: 3;
+          grid-row: 2;
+          aspect-ratio: unset;
+          position: relative;
+          overflow: hidden;
+          background: #111c28;
+        }
+      }
+
+      .pgrid-right-bot2 { display: none; }
+
+      .pgrid-cell-img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         display: block;
-        transition: filter 0.35s ease;
+        transition: transform 0.5s ease;
+      }
+      @media (min-width: 640px) {
+        .pgrid-left:hover .pgrid-cell-img,
+        .pgrid-right-top:hover .pgrid-cell-img,
+        .pgrid-right-bot:hover .pgrid-cell-img,
+        .pgrid-right-bot2:hover .pgrid-cell-img {
+          transform: scale(1.04);
+        }
       }
 
-      /* ── DESKTOP (≥ 768px): mosaic grid 3 cột đầy màn hình ── */
-      @media (min-width: 768px) {
-        .mosaic-section {
-          height: 100vh;
-          display: flex;
-          flex-direction: column;
-        }
-        .mosaic-grid {
-          display: grid;
-          flex: 1;
-          height: 100%;
-          grid-template-columns: 2fr 1.2fr 1.2fr;
-          grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
-          gap: 4px;
-        }
-        .m-left   { grid-column: 1; grid-row: 1 / 3; }
-        .m-top-r  { grid-column: 2 / 4; grid-row: 1; }
-        .m-bot-r1 { grid-column: 2; grid-row: 2; }
-        .m-bot-r2 { display: block; grid-column: 3; grid-row: 2; }
-        .mosaic-cell { height: auto; }
-        .mosaic-cell:hover img {
-          filter: brightness(1.08);
-          transform: scale(1.02);
-          transition: filter 0.4s ease, transform 0.5s ease;
-        }
+      /* Overlay gradient */
+      .pgrid-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(8,16,24,0.62) 0%, transparent 50%);
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+
+      /* Caption trên ảnh trái lớn */
+      .pgrid-caption {
+        position: absolute;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+        z-index: 2;
+      }
+      .pgrid-caption-num {
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        color: rgba(136,200,232,0.55);
+        display: block;
+        margin-bottom: 4px;
+      }
+      .pgrid-caption-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(14px, 3.5vw, 18px);
+        color: rgba(255,255,255,0.85);
+        letter-spacing: 0.06em;
+        line-height: 1.4;
+      }
+
+      /* Số nhỏ góc ảnh phải */
+      .pgrid-num {
+        position: absolute;
+        top: 10px; right: 12px;
+        font-family: 'EB Garamond', serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: rgba(136,200,232,0.4);
+        z-index: 2;
+      }
+
+      .photo-grid-footer {
+        text-align: center;
+        padding: 22px 20px 32px;
+      }
+      .photo-grid-footer-line {
+        width: 36px; height: 1px;
+        background: rgba(136,200,232,0.22);
+        margin: 0 auto 12px;
+      }
+      .photo-grid-footer p {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        color: rgb(8 93 163)
       }
     </style>
   </head>
@@ -1602,6 +1738,96 @@
 
     </section>
 
+     <section class="photo-grid-section" id="page3b">
+
+      <div class="photo-grid-header">
+        <!-- <span class="photo-grid-label">✦ &nbsp; Khoảnh Khắc Sân Khấu &nbsp; ✦</span> -->
+        <h2 class="photo-grid-title">Bồ Công Anh Trong Gió</h2>
+        <div class="photo-grid-rule">
+          <div class="photo-grid-rule-line"></div>
+          <span class="photo-grid-rule-gem">◆</span>
+          <div class="photo-grid-rule-line"></div>
+        </div>
+      </div>
+
+      <img class="pgrid-cell-img" src="/assets/zngan1.jpg" alt="Khoảnh khắc 1" />
+      <div class="pgrid">
+
+        
+
+        <!-- Ảnh trái lớn -->
+        <div class="pgrid-left">
+          <img class="pgrid-cell-img" src="/assets/zdoc1.jpg" alt="Khoảnh khắc 1" />
+        </div>
+
+        <div class="pgrid-right">
+          <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 1" />
+          <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 1" />
+          <img class="pgrid-cell-img" src="/assets/IMG_0655.jpg" alt="Khoảnh khắc 1" />
+          <img class="pgrid-cell-img" src="/assets/IMG_7842.jpg" alt="Khoảnh khắc 1" />
+
+        </div>
+        
+
+        <!-- Ảnh phải trên -->
+        <!-- <div class="pgrid-right-top"> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 2" /> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0655.JPG" alt="Khoảnh khắc 2" /> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 2" /> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/zngan1.jpg" alt="Khoảnh khắc 2" /> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" /> -->
+          <!-- <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">02</span>
+        </div> -->
+
+        <!-- Ảnh phải dưới -->
+        <!-- <div class="pgrid-right-bot">
+          <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" />
+          <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">03</span>
+        </div> -->
+
+        <!-- Ảnh thứ 4 — chỉ hiện trên desktop -->
+        <!-- <div class="pgrid-right-bot2"> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/zdocnho3.JPG" alt="Khoảnh khắc 4" />
+          <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">04</span>
+        </div>  -->
+
+      </div>
+
+        <!-- Ảnh phải trên -->
+        <!-- <div class="pgrid-right-top">
+          <img class="pgrid-cell-img" src="/assets/zngannho.jpg" alt="Khoảnh khắc 2" />
+          <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" />
+          <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">02</span>
+        </div>
+
+        <!-- Ảnh phải dưới -->
+        <!-- <div class="pgrid-right-bot">
+          <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" />
+          <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">03</span>
+        </div> -->
+
+        <!-- Ảnh thứ 4 — chỉ hiện trên desktop -->
+        <!-- <div class="pgrid-right-bot2"> -->
+          <!-- <img class="pgrid-cell-img" src="/assets/zdocnho3.JPG" alt="Khoảnh khắc 4" />
+          <div class="pgrid-overlay"></div>
+          <span class="pgrid-num">04</span>
+        </div>  -->
+
+      </div>
+
+   
+
+      <div class="photo-grid-footer">
+        <div class="photo-grid-footer-line"></div>
+        <p>✦ Sân Khấu Nụ Cười ✦</p>
+      </div>
+
+    </section>
     <!-- ══════════════════════════════════════
      PAGE 3B: MOSAIC GRID
 ══════════════════════════════════════ -->
