@@ -1382,69 +1382,48 @@
       .photo-grid-rule-line { flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(78,170,220,0.35),transparent); }
       .photo-grid-rule-gem { color:rgba(78,170,220,0.5);font-size:6px; }
 
-      /* ── GRID LAYOUT ── */
+      /* ── GRID LAYOUT - Left 1 tall + Right 4 vertical ── */
       .pgrid {
         display: grid;
         width: 100%;
-        gap: 5px;
-        /* Mobile: trái 1 ảnh lớn, phải 2 ảnh nhỏ */
-        grid-template-columns: 1.15fr 1fr;
-        grid-template-rows: auto;
-        margin-top: 20px;
+        max-width: 1200px;
+        margin: 20px auto 0;
+        padding: 0 10px;
+        gap: 8px;
+        /* Trái 1 cột lớn, phải 1 cột nhỏ */
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 1fr);
       }
 
-      /* Ảnh trái — chiều cao bằng tổng 2 ô phải cộng gap */
+      /* Ảnh đầu tiên full width */
+      .pgrid > img:first-child {
+        grid-column: 1 / -1;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        border-radius: 4px;
+        margin-bottom: 8px;
+      }
+
+      /* Ảnh trái lớn - chiếm 4 hàng */
       .pgrid-left {
         grid-column: 1;
-        grid-row: 1 / 3;
-        aspect-ratio: 0/3;
+        grid-row: 1 / 5;
         position: relative;
         overflow: hidden;
         background: #111c28;
-        margin-left: 10px;
+        border-radius: 4px;
       }
 
-      .pgrid-right {
-        grid-column: 1/4;
-        grid-row: 1 / 4;
-        aspect-ratio: 1;
-        position: relative;
-        /* overflow: hidden; */
-        /* background: #111c28; */
-        /* margin-left: 10px; */
-      }
-
-      .pgrid-full {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        gap: 5px;
-        margin-right: 10px;
-        margin-top: 5px;
-      }
-
-      /* 2 ô phải nhỏ */
-      .pgrid-right-top {
+      /* 4 ảnh bên phải - mỗi ảnh 1 hàng, xếp dọc */
+      .pgrid-right-item {
         grid-column: 2;
-        grid-row: 1;
-        aspect-ratio: 1/1;
         position: relative;
         overflow: hidden;
         background: #111c28;
+        border-radius: 4px;
       }
-      .pgrid-right-bot {
-        grid-column: 2;
-        grid-row: 2;
-        aspect-ratio: 1/1;
-        position: relative;
-        overflow: hidden;
-        background: #111c28;
-      }
-
-      /* ── DESKTOP ≥ 640px: 3 cột ── */
-     
-
-      .pgrid-right-bot2 { display: none; }
 
       .pgrid-cell-img {
         width: 100%;
@@ -1452,9 +1431,16 @@
         object-fit: cover;
         display: block;
         transition: transform 0.5s ease;
-        margin-bottom: 10px;
+        border-radius: 4px;
       }
-     
+
+      /* Ảnh dọc trong pgrid-left giữ nguyên tỷ lệ */
+      .pgrid-left .pgrid-cell-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
 
       /* Overlay gradient */
       .pgrid-overlay {
@@ -1501,6 +1487,23 @@
         z-index: 2;
       }
 
+      /* Responsive - giữ layout cho tất cả thiết bị */
+      @media (max-width: 768px) {
+        .pgrid {
+          /* Mobile vẫn giữ layout: trái 1, phải 4 dọc */
+          grid-template-columns: 1.2fr 1fr;
+          gap: 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .pgrid {
+          /* Màn hình nhỏ: giữ nguyên layout */
+          grid-template-columns: 1.2fr 1fr;
+          gap: 5px;
+        }
+      }
+
       .photo-grid-footer {
         text-align: center;
         padding: 22px 20px 32px;
@@ -1516,6 +1519,53 @@
         font-size: 12px;
         letter-spacing: 0.18em;
         color: rgb(8 93 163)
+      }
+
+      /* ─── COUNTDOWN TIMER ─── */
+      .countdown-timer {
+        margin-top: 32px;
+        padding: 24px 20px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        border: 1px solid rgba(78,170,200,0.25);
+      }
+      .countdown-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        color: var(--sage-deep);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        opacity: 0.7;
+      }
+      .countdown-display {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .countdown-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 60px;
+      }
+      .countdown-value {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(32px, 6vw, 48px);
+        font-weight: 300;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .countdown-unit-label {
+        font-family: 'EB Garamond', serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--sage-mid);
+        text-transform: uppercase;
+        opacity: 0.7;
       }
     </style>
   </head>
@@ -1722,50 +1772,24 @@
 
       <img class="pgrid-cell-img" src="/assets/zngan1.jpg" alt="Khoảnh khắc 1" />
       <div class="pgrid">
-
-        
-
-        <!-- Ảnh trái lớn -->
+        <!-- Ảnh trái lớn dọc -->
         <div class="pgrid-left">
-          <img class="pgrid-cell-img" src="/assets/zdoc1.jpg" alt="Khoảnh khắc 1" />
+          <img class="pgrid-cell-img" src="/assets/zdoc1.jpg" alt="Khoảnh khắc dọc" />
         </div>
 
-        <div class="pgrid-full">
-          <div class="pgrid-right">   
-          <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 1" />
-          <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 1" />
-          <img class="pgrid-cell-img" src="/assets/IMG_0655.jpg" alt="Khoảnh khắc 1" />
-          <img class="pgrid-cell-img" src="/assets/IMG_7842.jpg" alt="Khoảnh khắc 1" />
-          </div>
-
+        <!-- 4 ảnh bên phải xếp 2x2 -->
+        <div class="pgrid-right-item">
+          <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 2" />
         </div>
-        
-
-        <!-- Ảnh phải trên -->
-        <!-- <div class="pgrid-right-top"> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 2" /> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0655.JPG" alt="Khoảnh khắc 2" /> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/IMG_0659.JPG" alt="Khoảnh khắc 2" /> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/zngan1.jpg" alt="Khoảnh khắc 2" /> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" /> -->
-          <!-- <div class="pgrid-overlay"></div>
-          <span class="pgrid-num">02</span>
-        </div> -->
-
-        <!-- Ảnh phải dưới -->
-        <!-- <div class="pgrid-right-bot">
-          <img class="pgrid-cell-img" src="/assets/zdocnho2.JPG" alt="Khoảnh khắc 3" />
-          <div class="pgrid-overlay"></div>
-          <span class="pgrid-num">03</span>
-        </div> -->
-
-        <!-- Ảnh thứ 4 — chỉ hiện trên desktop -->
-        <!-- <div class="pgrid-right-bot2"> -->
-          <!-- <img class="pgrid-cell-img" src="/assets/zdocnho3.JPG" alt="Khoảnh khắc 4" />
-          <div class="pgrid-overlay"></div>
-          <span class="pgrid-num">04</span>
-        </div>  -->
-
+        <div class="pgrid-right-item">
+          <img class="pgrid-cell-img" src="/assets/IMG_0654.jpg" alt="Khoảnh khắc 3" />
+        </div>
+        <div class="pgrid-right-item">
+          <img class="pgrid-cell-img" src="/assets/IMG_0655.jpg" alt="Khoảnh khắc 4" />
+        </div>
+        <div class="pgrid-right-item">
+          <img class="pgrid-cell-img" src="/assets/IMG_7842.jpg" alt="Khoảnh khắc 5" />
+        </div>
       </div>
 
         <!-- Ảnh phải trên -->
@@ -1940,6 +1964,29 @@
           <div class="event-venue-address">
             Số 6 Huyền Trân Công Chúa<br />
             Phường Bến Thành, TP. Hồ Chí Minh
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="countdown-timer reveal">
+        <div class="countdown-label">Đếm Ngược Đến Sự Kiện</div>
+        <div class="countdown-display" id="countdownDisplay">
+          <div class="countdown-unit">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-unit-label">Ngày</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-unit-label">Giờ</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-unit-label">Phút</div>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-unit-label">Giây</div>
           </div>
         </div>
       </div>
@@ -2258,6 +2305,36 @@
           setPlaying(false);
         }
       });
+
+      // ─── Countdown Timer ───
+      const eventDate = new Date('2026-03-31T19:00:00').getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+          document.getElementById('days').textContent = '00';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      // Update countdown every second
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     </script>
   </body>
 </html>
