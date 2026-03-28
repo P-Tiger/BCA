@@ -1432,41 +1432,7 @@
       }
 
       /* ── DESKTOP ≥ 640px: 3 cột ── */
-      @media (min-width: 640px) {
-        .pgrid {
-          grid-template-columns: 1.4fr 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-          /* height: 100vh; */
-          /* max-height: 700px; */
-          grid-template-columns: 1.15fr 1fr;
-        grid-template-rows: auto;
-        }
-        .pgrid-left {
-          grid-column: 1;
-          grid-row: 0 / 3;
-          aspect-ratio: unset;
-          height: 100%;
-        }
-        .pgrid-right-top {
-          grid-column: 2 / 4;
-          grid-row: 1;
-          aspect-ratio: unset;
-        }
-        .pgrid-right-bot {
-          grid-column: 2;
-          grid-row: 2;
-          aspect-ratio: unset;
-        }
-        .pgrid-right-bot2 {
-          display: block !important;
-          grid-column: 3;
-          grid-row: 2;
-          aspect-ratio: unset;
-          position: relative;
-          overflow: hidden;
-          background: #111c28;
-        }
-      }
+     
 
       .pgrid-right-bot2 { display: none; }
 
@@ -1477,14 +1443,7 @@
         display: block;
         transition: transform 0.5s ease;
       }
-      @media (min-width: 640px) {
-        .pgrid-left:hover .pgrid-cell-img,
-        .pgrid-right-top:hover .pgrid-cell-img,
-        .pgrid-right-bot:hover .pgrid-cell-img,
-        .pgrid-right-bot2:hover .pgrid-cell-img {
-          transform: scale(1.04);
-        }
-      }
+     
 
       /* Overlay gradient */
       .pgrid-overlay {
