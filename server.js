@@ -42,7 +42,7 @@ fs.readdirSync(inputDir).forEach((file) => {
 
   resizeImage(inputPath, outputPath, {
     width: 800,
-    quality: 90,
+    quality: 100,
     format: 'webp',
   });
 });
